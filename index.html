@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration Form</title>
     <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+
 
 </head>
 <body class="bg-gray-100 flex justify-center items-center h-screen">
@@ -14,8 +16,8 @@
 
 
             <div>
-                <label for="username" class="block text-sm font-medium text-gray-700">Username:</label>
-                <input type="text" id="username" name="username" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                <label for="name" class="block text-sm font-medium text-gray-700">Username:</label>
+                <input type="text" id="name" name="name" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
             </div>
 
 
@@ -52,10 +54,12 @@
     <table class=" bg-white border border-gray-300 tablem">
         <thead>
             <tr class="bg-gray-200 text-left">
-                <th class="px-4 py-2 border-b">Username</th>
+                <th class="px-4 py-2 border-b">Name</th>
                 <th class="px-4 py-2 border-b" >Email</th>
                 <th class="px-4 py-2 border-b">Password</th>
-                <th class="px-4 py-2 border-b">Date of Birth</th>
+                <th class="px-4 py-2 border-b">Dob</th>
+                <th class="px-4 py-2 border-b">Accepted terms?</th>
+                
             </tr>
         </thead>
         <tbody id="w1">
@@ -63,88 +67,8 @@
            
         </tbody>
     </table>
+<script src="index.js"></script>
 
-
-
-    <script>
-        let userentries= document.getElementById("registrationForm");
-        const a = JSON.parse(localStorage.getItem("user-entries")) || [];
-   
-        userentries.addEventListener("submit", user =(event)=>{
-            event.preventDefault();
-            const name= document.getElementById("username").value;
-            const email= document.getElementById("email").value;
-            const pass= document.getElementById("password").value;
-            const dob= document.getElementById("dob").value;
-
-            const checked=document.getElementById("terms").checked;
-            const entry = {
-                name,
-                email,
-                pass,
-                dob,
-                checked
-            }
-            a.push(entry);
-            localStorage.setItem("user-entries",JSON.stringify(a));
-            window.location.reload()
-       
-        })   
-        const b = JSON.parse(localStorage.getItem("user-entries")) || [];
-     b.map((be)=>{
-      
-      
-    
-        document.getElementById("w1").innerHTML = document.getElementById("w1").innerHTML + `<tr>
-                    <td class="px-4 py-2 border-b">${be.name}</td>
-                    <td class="px-4 py-2 border-b">${be.email}</td>
-                    <td class="px-4 py-2 border-b">${be.pass}</td>
-                    <td class="px-4 py-2 border-b">${be.dob}</td>
-                </tr>`
-            
-     })
-
-    
-    document.getElementById("dob").addEventListener('input',(event)=>{
-    event.preventDefault();
-    let age = new Date().getFullYear() - new Date(dob.value).getFullYear();
-    function check(){
-        if(age < 18 || age>55){
-            dob.setCustomValidity("age shuld be between 18 to 55");
-            dob.reportValidity();
-        }else{
-            dob.setCustomValidity('');
-        }
-    }
-    check()
- 
-    
-    });
-    document.getElementById("email").addEventListener('input',(event)=>{
-    event.preventDefault();
-    function isValidEmail(email) {
-    // Basic regex for validating email addresses
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailPattern.test(email);
-}
-
-    function check(ev){
-        console.log("dsf",isValidEmail(ev))
-        if(!isValidEmail(ev)){
-      
-            email.setCustomValidity(`email  ${email.value}  is not right format`);
-        email.reportValidity();
-        }else if(isValidEmail(ev)){
-            email.setCustomValidity('');
-        }
-    }
-    check(email.value)
-   
-    
-    });
-
-        
-    </script>
 
 </body>
 </html>
