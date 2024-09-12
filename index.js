@@ -41,7 +41,7 @@ document.getElementById("dob").addEventListener('input',(event)=>{
 event.preventDefault();
 let age = new Date().getFullYear() - new Date(dob.value).getFullYear();
 function check(){
-if(age > 18 || age<55){
+if(age < 18 || age>55){
     dob.setCustomValidity("age shuld be between 18 to 55");
     dob.reportValidity();
 }else{
